@@ -7,10 +7,7 @@ namespace CodeBase.Logic
   {
     public CanvasGroup Curtain;
 
-    private void Awake()
-    {
-      DontDestroyOnLoad(this);
-    }
+    private void Awake() => DontDestroyOnLoad(this);
 
     public void Show()
     {
@@ -18,10 +15,7 @@ namespace CodeBase.Logic
       Curtain.alpha = 1;
     }
     
-    public void Hide() {
-      Debug.Log("Active? "+gameObject.activeInHierarchy);
-      StartCoroutine(DoFadeIn());
-    }
+    public void Hide() => StartCoroutine(DoFadeIn());
 
     private IEnumerator DoFadeIn()
     {
