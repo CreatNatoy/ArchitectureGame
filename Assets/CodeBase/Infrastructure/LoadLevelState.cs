@@ -1,5 +1,7 @@
 ﻿using System;
-using UnityEngine.SceneManagement;
+using CodeBase.CameraLogic;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CodeBase.Infrastructure
 {
@@ -13,10 +15,24 @@ namespace CodeBase.Infrastructure
             _sceneLoader = sceneLoader;
         }
 
-        public void Enter(string nameScene) => SceneManager.LoadScene(nameScene);
+        public void Enter(string nameScene) => _sceneLoader.Load(nameScene, OnLoaded);
 
         public void Exit() {
             throw new NotImplementedException();
         }
+
+        private void OnLoaded() {
+            var hero = Instantiate("Hero/hero");
+            Instantiate("Hud/Hud");
+            CameraFollow(hero);
+        }
+
+        private static GameObject Instantiate(string path) {
+            var prefab = Resources.Load<GameObject>(path);
+            return Object.Instantiate(prefab); 
+        }
+        
+        private static void CameraFollow(GameObject hero) => Camera.main.GetComponent<CameraFollow>().Follow(hero);
+
     }
 }
