@@ -5,9 +5,9 @@ namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
-        private readonly IAssetProvider _assets;
+        private readonly IAssets _assets;
 
-        public GameFactory(IAssetProvider asset) {
+        public GameFactory(IAssets asset) {
             _assets = asset; 
         }
         public GameObject CreateHero(GameObject at) => _assets.Instantiate(AssetPath.HeroPath, at.transform.position);
