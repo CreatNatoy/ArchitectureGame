@@ -34,9 +34,7 @@ namespace CodeBase.Infrastructure
             if (Application.isEditor)
                 return new StandaloneInputService();
             else
-            {
                 return new MobileInputService();
-            }
         }
     }
 }
