@@ -1,10 +1,12 @@
-﻿using CodeBase.Infrastructure.Services;
+﻿using CodeBase.Data;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Services.Input;
 using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    public class HeroMove : MonoBehaviour
+    public class HeroMove : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _movementSpeed = 4.0f;
@@ -37,6 +39,14 @@ namespace CodeBase.Hero
 
             movementVector += Physics.gravity;
             _characterController.Move(_movementSpeed * movementVector * Time.deltaTime);
+        }
+
+        public void LoadProgress(PlayerProgress progress) {
+            progress.WorldData.Position = transform.position.AsVectorData(); 
+        }
+
+        public void UpdateProgress(PlayerProgress progress) {
+            
         }
     }
 }
