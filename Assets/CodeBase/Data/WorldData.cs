@@ -5,6 +5,10 @@ namespace CodeBase.Data
     [Serializable]
     public class WorldData
     {
-        public VectorPositionOnLevel PositionOnLevel;
+        public PositionOnLevel PositionOnLevel;
+
+        public WorldData(string initialLevel) {
+            PositionOnLevel = new PositionOnLevel(initialLevel);
+        }
     }
 }

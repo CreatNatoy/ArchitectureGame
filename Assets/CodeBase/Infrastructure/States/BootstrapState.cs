@@ -2,6 +2,7 @@
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Services.Input;
 using UnityEngine.Device;
 
@@ -30,13 +31,14 @@ namespace CodeBase.Infrastructure.States
             
         }
 
-        private void EnterLoadLevel() => _stateMachine.Enter<LoadLevelState, string>("Main");
+        private void EnterLoadLevel() => _stateMachine.Enter<LoadProgressState>();
 
         private void RegisterServices() {
 
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IAssets>(new AssetProvider());
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
+            _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IGameFactory>()));
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssets>()));
         }
 
