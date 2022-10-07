@@ -25,8 +25,8 @@ namespace CodeBase.Hero
             _camera = Camera.main;
         }
 
-        private void Update()
-        {
+        private void Update() {
+
             var movementVector = Vector3.zero;
 
             if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
@@ -41,7 +41,7 @@ namespace CodeBase.Hero
             movementVector += Physics.gravity;
             _characterController.Move(_movementSpeed * movementVector * Time.deltaTime);
         }
-
+        
         public void UpdateProgress(PlayerProgress progress) =>
             progress.WorldData.PositionOnLevel =
                 new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
