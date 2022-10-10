@@ -5,7 +5,6 @@ namespace CodeBase.Enemy
 {
     public class AnimateAlongAgent : MonoBehaviour
     {
-
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private EnemyAnimator _animator;
         [SerializeField] private float _minimalVelocity = 0.1f;
