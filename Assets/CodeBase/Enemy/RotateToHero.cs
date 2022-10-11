@@ -46,7 +46,7 @@ namespace CodeBase.Enemy
 
     private void UpdatePositionToLookAt()
     {
-      Vector3 positionDelta = _heroTransform.position - transform.position;
+      var positionDelta = _heroTransform.position - transform.position;
       _positionToLook = new Vector3(positionDelta.x, transform.position.y, positionDelta.z);
     }
     
