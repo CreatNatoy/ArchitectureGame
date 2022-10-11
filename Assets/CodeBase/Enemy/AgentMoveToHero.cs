@@ -6,7 +6,8 @@ using UnityEngine.AI;
 
 namespace CodeBase.Enemy
 {
-    public class AgentMoveToPlayer : MonoBehaviour
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class AgentMoveToHero : Follow
     {
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private float _minimalDistance = 1f;
@@ -17,7 +18,7 @@ namespace CodeBase.Enemy
         private void Start() {
             _gameFactory = AllServices.Container.Single<IGameFactory>();
 
-            if (_gameFactory.HeroGameObject != null)
+            if (HeroExists())
                 InitializationHeroTransform();
             else
                 _gameFactory.HeroCreated += HeroCreated;
@@ -27,6 +28,9 @@ namespace CodeBase.Enemy
             if (Initialized() && HeroNotReached())
                 _agent.destination = _heroTransform.position; 
         }
+
+        private bool HeroExists() => 
+            _gameFactory.HeroGameObject != null;
 
         private bool Initialized() => _heroTransform != null;
 
