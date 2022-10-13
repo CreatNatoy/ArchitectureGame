@@ -18,6 +18,7 @@ namespace CodeBase.Enemy
         private bool _isAttacking;
         private Collider[] _hits = new Collider[1];
         private int _layerMask;
+        private bool _attackIsActive;
 
         private void Awake() {
             _factory = AllServices.Container.Single<IGameFactory>();
@@ -38,6 +39,15 @@ namespace CodeBase.Enemy
             }
         }
 
+        private void OnAttackEnded() {
+            _currentAttackCooldown = _attackCooldown;
+            _isAttacking = false;
+        }
+
+        public void DisableAttack() => _attackIsActive = false;
+
+        public void EnableAttack() => _attackIsActive = true;
+        
         private bool Hit(out Collider hit) {
             var hitCount = Physics.OverlapSphereNonAlloc(StartPoint(), _cleavage, _hits, _layerMask);
 
@@ -51,28 +61,21 @@ namespace CodeBase.Enemy
                    transform.forward * _effectiveDistance;
         }
 
-        private void OnAttackEnded() {
-            _attackCooldown = _currentAttackCooldown;
-            _isAttacking = false;
-        }
-
         private void UpdateCooldown() {
             if (!CooldownIsUp())
-                _attackCooldown -= Time.deltaTime;
+                _currentAttackCooldown -= Time.deltaTime;
         }
 
 
         private void StartAttack() {
             transform.LookAt(_heroTransform);
             _animator.PlayAttack();
-            _isAttacking = false;
+            _isAttacking = true;
         }
 
-        private bool CanAttack() {
-            return !_isAttacking && CooldownIsUp();
-        }
+        private bool CanAttack() => _attackIsActive && !_isAttacking && CooldownIsUp();
 
-        private bool CooldownIsUp() => _currentAttackCooldown <= 0;
+        private bool CooldownIsUp() => _currentAttackCooldown <= 0f;
 
         private void OnHeroCreated() => _heroTransform = _factory.HeroGameObject.transform;
     }
