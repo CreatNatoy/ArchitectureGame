@@ -1320,6 +1320,7 @@ GameObject:
   - component: {fileID: 1935465249069149388}
   - component: {fileID: 1941000699}
   - component: {fileID: 2420445168886418897}
+  - component: {fileID: 4908708264853379814}
   m_Layer: 12
   m_Name: hero
   m_TagString: Player
@@ -1379,12 +1380,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
-  m_Radius: 1
+  m_Radius: 1.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!54 &1935465249069149388
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1429,6 +1430,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterController: {fileID: 2273110835486338371}
   _movementSpeed: 4
+--- !u!114 &4908708264853379814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a8a75cb04d4a5c896c3d1b8900c62b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1941000699}
 --- !u!1 &178646
 GameObject:
   m_ObjectHideFlags: 0

@@ -489,7 +489,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500939411536426}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f92e18cc4ff47918a34360da4eb14be, type: 3}
   m_Name: 
@@ -542,6 +542,7 @@ MonoBehaviour:
   _attackCooldown: 3
   _cleavage: 0.5
   _effectiveDistance: 0.5
+  _damage: 10
 --- !u!114 &1035134624437179819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -992,7 +993,7 @@ GameObject:
   - component: {fileID: 6992619035455773754}
   - component: {fileID: 7687898401690187663}
   - component: {fileID: 115723382306383304}
-  m_Layer: 13
+  m_Layer: 17
   m_Name: AttackZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1025,7 +1026,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &115723382306383304
 MonoBehaviour:
@@ -1050,7 +1051,7 @@ GameObject:
   - component: {fileID: 3361163229655410467}
   - component: {fileID: 5013826960166406699}
   - component: {fileID: 5918971887508106257}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: AggroZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1083,7 +1084,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5918971887508106257
 MonoBehaviour:
