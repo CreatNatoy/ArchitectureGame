@@ -26,7 +26,7 @@ namespace CodeBase.Infrastructure.Factory
             return HeroGameObject; 
         }
 
-        public void CreateHud() => InstantiateRegistered(AssetPath.HudPath);
+        public GameObject CreateHud() => InstantiateRegistered(AssetPath.HudPath);
 
         public void Cleanup() {
             ProgressesWriters.Clear();

@@ -1,4 +1,5 @@
-﻿using CodeBase.Data;
+﻿using System;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 
@@ -7,13 +8,19 @@ namespace CodeBase.Hero
     public class HeroHealth : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private HeroAnimator _animator;
-        
+
         private State _state;
+
+        public Action HealthChanged;
 
         public float Current {
             get => _state.CurrentHP;
-            set => _state.CurrentHP = value;
-
+            set {
+                if (_state.CurrentHP != value) {
+                    _state.CurrentHP = value;
+                    HealthChanged?.Invoke();
+                }
+            }
         }
 
         public float Max {
@@ -23,6 +30,7 @@ namespace CodeBase.Hero
 
         public void LoadProgress(PlayerProgress progress) {
             _state = progress.HeroState;
+            HealthChanged?.Invoke();
         }
 
         public void UpdateProgress(PlayerProgress progress) {
@@ -31,7 +39,7 @@ namespace CodeBase.Hero
         }
 
         public void TakeDamage(float damage) {
-            if(Current <= 0) return;
+            if (Current <= 0) return;
 
             Current -= damage;
             _animator.PlayHit();
