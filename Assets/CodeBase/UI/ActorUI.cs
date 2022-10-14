@@ -1,5 +1,6 @@
 ﻿using System;
 using CodeBase.Hero;
+using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.UI
@@ -8,19 +9,26 @@ namespace CodeBase.UI
     {
         [SerializeField] private HpBar _hpBar;
 
-        private HeroHealth _heroHealth;
+        private IHealth _health;
 
-        public void Construct(HeroHealth health) {
-            _heroHealth = health;
+        public void Construct(IHealth health) {
+            _health = health;
 
-            _heroHealth.HealthChanged += UpdateHpBar; 
+            _health.HealthChanged += UpdateHpBar; 
+        }
+
+        private void Start() {
+            var health = GetComponent<IHealth>();
+            
+            if(health != null)
+                Construct(health);
         }
 
         private void OnDestroy() => 
-            _heroHealth.HealthChanged -= UpdateHpBar;
+            _health.HealthChanged -= UpdateHpBar;
 
         private void UpdateHpBar() {
-           _hpBar.SetValue(_heroHealth.Current, _heroHealth.Max); 
+           _hpBar.SetValue(_health.Current, _health.Max); 
         }
     }
 }
