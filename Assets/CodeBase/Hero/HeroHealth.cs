@@ -41,7 +41,6 @@ namespace CodeBase.Hero
 
         public void TakeDamage(float damage) {
             if (Current <= 0) return;
-            Debug.Log("take damege");
             Current -= damage;
             _animator.PlayHit();
         }

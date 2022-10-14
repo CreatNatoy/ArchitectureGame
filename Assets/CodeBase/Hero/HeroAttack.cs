@@ -29,8 +29,10 @@ namespace CodeBase.Hero
         }
 
         public void OnAttack() {
-            foreach (var hit in _hits) 
-                hit.transform.parent.GetComponent<IHealth>().TakeDamage(_stats.Damage);
+
+            for (var index = 0; index < Hit(); index++) {
+                _hits[index].transform.parent.GetComponent<IHealth>().TakeDamage(_stats.Damage);
+            }
         }
 
         public void LoadProgress(PlayerProgress progress) => 

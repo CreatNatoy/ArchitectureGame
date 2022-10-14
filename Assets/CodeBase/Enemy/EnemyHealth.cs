@@ -26,7 +26,6 @@ namespace CodeBase.Enemy
             _current -= damage;
             
             _animator.PlayHit();
-            
             HealthChanged?.Invoke();
         }
     }

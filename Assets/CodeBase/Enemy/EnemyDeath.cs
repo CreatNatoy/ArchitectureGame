@@ -27,7 +27,7 @@ namespace CodeBase.Enemy
             _health.HealthChanged -= HealthChanged;
             
             _animator.PlayDeath();
-
+            
             SpawnDeathFx();
             StartCoroutine(DestroyTimer());
             
