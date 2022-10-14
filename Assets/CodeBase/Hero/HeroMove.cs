@@ -1,4 +1,5 @@
-﻿using CodeBase.Data;
+﻿using System;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Services.Input;
@@ -11,7 +12,8 @@ namespace CodeBase.Hero
     {
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _movementSpeed = 4.0f;
-        
+        [SerializeField] private Rigidbody _rigidbody;
+
         private IInputService _inputService;
         private Camera _camera;
 
@@ -41,7 +43,11 @@ namespace CodeBase.Hero
             movementVector += Physics.gravity;
             _characterController.Move(_movementSpeed * movementVector * Time.deltaTime);
         }
-        
+
+        private void OnEnable() => _rigidbody.isKinematic = false;
+
+        private void OnDisable() => _rigidbody.isKinematic = true;
+
         public void UpdateProgress(PlayerProgress progress) =>
             progress.WorldData.PositionOnLevel =
                 new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
