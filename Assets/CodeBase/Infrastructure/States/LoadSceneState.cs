@@ -8,17 +8,18 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
-    public class LoadLevelState : IPayloadedState<string>
+    public class LoadSceneState : IPayloadedState<string>
     {
         private const string InitialPoint = "InitialPoint";
-        
+        private const string EnemySpawnerTag = "EnemySpawner";
+
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _curtain;
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain,  IGameFactory gameFactory, IPersistentProgressService progressService) {
+        public LoadSceneState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain,  IGameFactory gameFactory, IPersistentProgressService progressService) {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _curtain = curtain;
@@ -41,16 +42,23 @@ namespace CodeBase.Infrastructure.States
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private void InformProgressReaders() {
-            foreach (var progressReader in _gameFactory.ProgressReaders)
-                progressReader.LoadProgress(_progressService.Progress);
-        }
+        private void InformProgressReaders() => 
+            _gameFactory.ProgressReaders.ForEach(x => x.LoadProgress(_progressService.Progress));
 
         private void InitGameWorld() {
+            InitSpawners();
+            
             var hero = InitHero();
 
             InitHud(hero);
             CameraFollow(hero);
+        }
+
+        private void InitSpawners() {
+            foreach (var spawnerObject in GameObject.FindGameObjectsWithTag(EnemySpawnerTag)) {
+                var spawner = spawnerObject.GetComponent<EnemySpawner>();
+                _gameFactory.Register(spawner); 
+            }
         }
 
         private GameObject InitHero() {

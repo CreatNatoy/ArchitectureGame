@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3644308732301834529}
   m_Layer: 0
   m_Name: Spawner
-  m_TagString: Untagged
+  m_TagString: EnemySpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _monsterTypeId: 0
+  _slain: 0
 --- !u!114 &3644308732301834529
 MonoBehaviour:
   m_ObjectHideFlags: 0
