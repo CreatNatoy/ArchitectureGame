@@ -22,8 +22,8 @@ namespace CodeBase.UI
                 Construct(health);
         }
 
- /*       private void OnDestroy() => 
-            _health.HealthChanged -= UpdateHpBar;*/
+        private void OnDestroy() => 
+            _health.HealthChanged -= UpdateHpBar;
 
         private void UpdateHpBar() {
            _hpBar.SetValue(_health.Current, _health.Max); 
