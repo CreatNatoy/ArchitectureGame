@@ -45,7 +45,7 @@ namespace CodeBase.Infrastructure.States
         }
 
         private void RegisterStaticData() {
-            var staticData = new StaticDataService();
+            IStaticDataService staticData = new StaticDataService();
             staticData.LoadMonsters();
             _services.RegisterSingle(staticData);
         }
