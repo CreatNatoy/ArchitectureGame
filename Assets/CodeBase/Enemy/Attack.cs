@@ -1,7 +1,4 @@
 ﻿using System.Linq;
-using CodeBase.Hero;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Logic;
 using UnityEngine;
 
@@ -10,12 +7,12 @@ namespace CodeBase.Enemy
     public class Attack : MonoBehaviour
     {
         [SerializeField] private EnemyAnimator _animator;
-        [SerializeField] private float _attackCooldown = 3f;
-        [SerializeField] private float _cleavage = 0.5f;
-        [SerializeField] private float _effectiveDistance = 0.5f;
-        [SerializeField] private float _damage = 10f;
+        
+         private float _attackCooldown = 3f;
+         private float _cleavage = 0.5f;
+         private float _effectiveDistance = 0.5f;
+         private float _damage = 10f;
 
-        private IGameFactory _factory;
         private Transform _heroTransform;
         private float _currentAttackCooldown;
         private bool _isAttacking;
@@ -23,10 +20,16 @@ namespace CodeBase.Enemy
         private int _layerMask;
         private bool _attackIsActive;
 
+        public void Construct(Transform heroTransform, float damage, float cleavage, float effectiveDistance, float attackCooldown) {
+            _heroTransform = heroTransform;
+            _damage = damage;
+            _cleavage = cleavage;
+            _effectiveDistance = effectiveDistance;
+            _attackCooldown = attackCooldown;
+        }
+
         private void Awake() {
-            _factory = AllServices.Container.Single<IGameFactory>();
             _layerMask = 1 << LayerMask.NameToLayer("Player");
-            _factory.HeroCreated += OnHeroCreated;
         }
 
         private void Update() {
@@ -51,7 +54,7 @@ namespace CodeBase.Enemy
         public void DisableAttack() => _attackIsActive = false;
 
         public void EnableAttack() => _attackIsActive = true;
-        
+
         private bool Hit(out Collider hit) {
             var hitCount = Physics.OverlapSphereNonAlloc(StartPoint(), _cleavage, _hits, _layerMask);
 
@@ -80,7 +83,5 @@ namespace CodeBase.Enemy
         private bool CanAttack() => _attackIsActive && !_isAttacking && CooldownIsUp();
 
         private bool CooldownIsUp() => _currentAttackCooldown <= 0f;
-
-        private void OnHeroCreated() => _heroTransform = _factory.HeroGameObject.transform;
     }
 }
