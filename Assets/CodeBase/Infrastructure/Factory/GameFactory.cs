@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
+using CodeBase.Services.Randomizer;
 using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
@@ -15,14 +16,16 @@ namespace CodeBase.Infrastructure.Factory
     {
         private readonly IAssets _assets;
         private readonly IStaticDataService _staticData;
+        private readonly IRandomService _randomService;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressesWriters { get; } = new List<ISavedProgress>();
         private GameObject HeroGameObject { get; set; }
 
-        public GameFactory(IAssets asset, IStaticDataService staticData) {
+        public GameFactory(IAssets asset, IStaticDataService staticData, IRandomService randomService) {
             _assets = asset;
             _staticData = staticData;
+            _randomService = randomService;
         }
         
         public GameObject CreateHero(GameObject at) {
@@ -45,7 +48,8 @@ namespace CodeBase.Infrastructure.Factory
             monster.GetComponent<AgentMoveToHero>().Construct(HeroGameObject.transform);
 
             var lootSpawner = monster.GetComponentInChildren<LootSpawner>();
-            lootSpawner.Construct(this);
+            lootSpawner.SetLoot(monsterData.MinLoot, monsterData.MaxLoot);
+            lootSpawner.Construct(this, _randomService);
 
             var attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform, monsterData.Damage, monsterData.Cleavage, monsterData.EffectiveDistance, monsterData.AttackCooldown);
