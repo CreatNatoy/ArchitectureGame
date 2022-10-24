@@ -44,6 +44,9 @@ namespace CodeBase.Infrastructure.Factory
             monster.GetComponent<ActorUI>().Construct(health); 
             monster.GetComponent<AgentMoveToHero>().Construct(HeroGameObject.transform);
 
+            var lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+            lootSpawner.Construct(this);
+
             var attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform, monsterData.Damage, monsterData.Cleavage, monsterData.EffectiveDistance, monsterData.AttackCooldown);
             
@@ -51,6 +54,9 @@ namespace CodeBase.Infrastructure.Factory
             
             return monster; 
         }
+
+        public GameObject CreateLoot() => 
+            InstantiateRegistered(AssetPath.Loot);
 
         public void Cleanup() {
             ProgressesWriters.Clear();
@@ -63,6 +69,13 @@ namespace CodeBase.Infrastructure.Factory
             return gameObject; 
         }
 
+        public void Register(ISavedProgressReader progressReader) {
+            if(progressReader is ISavedProgress progressWriter)
+                ProgressesWriters.Add(progressWriter);
+            
+            ProgressReaders.Add(progressReader);
+        }
+
         private GameObject InstantiateRegistered(string prefabPath) {
             var gameObject = _assets.Instantiate(prefabPath);
             RegisterProgressWatchers(gameObject);
@@ -72,13 +85,6 @@ namespace CodeBase.Infrastructure.Factory
         private void RegisterProgressWatchers(GameObject gameObject) {
             foreach (var progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
                 Register(progressReader);
-        }
-
-        public void Register(ISavedProgressReader progressReader) {
-            if(progressReader is ISavedProgress progressWriter)
-                ProgressesWriters.Add(progressWriter);
-            
-            ProgressReaders.Add(progressReader);
         }
     }
 }

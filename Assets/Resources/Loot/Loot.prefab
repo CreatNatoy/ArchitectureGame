@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1148823120736312362}
   - component: {fileID: 1148823120732888074}
   - component: {fileID: 1148823120734019274}
+  - component: {fileID: 6448272386132286893}
   m_Layer: 16
   m_Name: Skull_damaged
   m_TagString: Untagged
@@ -83,6 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6448272386132286893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148823120736010250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e49123cec47c64e4b8e6e5c40bf27fb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 150
 --- !u!1 &7880382966684822008
 GameObject:
   m_ObjectHideFlags: 0
