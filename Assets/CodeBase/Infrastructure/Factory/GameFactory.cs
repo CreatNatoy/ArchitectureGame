@@ -17,15 +17,17 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IAssets _assets;
         private readonly IStaticDataService _staticData;
         private readonly IRandomService _randomService;
+        private readonly IPersistentProgressService _progressService;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressesWriters { get; } = new List<ISavedProgress>();
         private GameObject HeroGameObject { get; set; }
 
-        public GameFactory(IAssets asset, IStaticDataService staticData, IRandomService randomService) {
+        public GameFactory(IAssets asset, IStaticDataService staticData, IRandomService randomService, IPersistentProgressService persistentProgressService) {
             _assets = asset;
             _staticData = staticData;
             _randomService = randomService;
+            _progressService = persistentProgressService;
         }
         
         public GameObject CreateHero(GameObject at) {
@@ -59,8 +61,13 @@ namespace CodeBase.Infrastructure.Factory
             return monster; 
         }
 
-        public GameObject CreateLoot() => 
-            InstantiateRegistered(AssetPath.Loot);
+        public LootPiece CreateLoot() {
+            var lootPiece = InstantiateRegistered(AssetPath.Loot).GetComponent<LootPiece>();
+            
+            lootPiece.Construct(_progressService.Progress.WorldData);
+            
+            return lootPiece;
+        }
 
         public void Cleanup() {
             ProgressesWriters.Clear();
