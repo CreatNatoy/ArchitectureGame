@@ -1,10 +1,17 @@
-﻿using CodeBase.Data;
+﻿using System.Collections;
+using CodeBase.Data;
+using TMPro;
 using UnityEngine;
 
 namespace CodeBase.Enemy
 {
     public class LootPiece : MonoBehaviour
     {
+        [SerializeField] private GameObject _skull;
+        [SerializeField] private GameObject _pickupFxPrefab;
+        [SerializeField] private TextMeshPro _lootText;
+        [SerializeField] private GameObject _pickupPopup; 
+        
         private Loot _loot;
         private bool _picked;
         private WorldData _worldData;
@@ -25,7 +32,29 @@ namespace CodeBase.Enemy
 
             _picked = true;
 
-            _worldData.LootData.Collect(_loot);
+            UpdateWorldData();
+            HideSkull();
+            PlayPickupFX(); 
+            ShowText();
+
+            StartCoroutine(StartDestroyTimer());
+        }
+
+        private void UpdateWorldData() => _worldData.LootData.Collect(_loot);
+
+        private void HideSkull() => _skull.SetActive(false);
+
+        private void PlayPickupFX() => Instantiate(_pickupFxPrefab, transform.position, Quaternion.identity);
+
+        private void ShowText() {
+            _lootText.text = $"{_loot.Value}";
+            _pickupPopup.SetActive(true);
+        }
+
+        private IEnumerator StartDestroyTimer() {
+            yield return new WaitForSeconds(1.5f); 
+            
+            Destroy(gameObject);
         }
     }
 }
