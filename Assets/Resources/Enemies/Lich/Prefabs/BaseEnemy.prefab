@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: -4480465088691665543}
   _minimalDistance: 1
+  _enemyDeath: {fileID: 5566831280510011722}
 --- !u!114 &2843024417642895852
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,12 @@ namespace CodeBase.Data
         public int Collected;
         public Action Changed;
 
+        public LootData(int lootValue) {
+            Collected = lootValue; 
+        }
+        
+        public LootData(){}
+
         public void Collect(Loot loot) {
             Collected += loot.Value; 
             Changed?.Invoke();
