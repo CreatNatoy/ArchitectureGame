@@ -80,6 +80,14 @@ namespace CodeBase.Infrastructure.Factory
             ProgressReaders.Clear();
         }
 
+        public void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId) {
+            EnemySpawner spawner = InstantiateRegistered(AssetPath.Spawner)
+                .GetComponent<EnemySpawner>();
+
+            spawner.Id = spawnerId;
+            spawner.MonsterTypeId = monsterTypeId;
+        }
+
         private GameObject InstantiateRegistered(string prefabPath, Vector3 at) {
             var gameObject = _assets.Instantiate(prefabPath, at);
             RegisterProgressWatchers(gameObject);

@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
@@ -11,27 +10,27 @@ namespace CodeBase.Logic
 {
     public class EnemySpawner : MonoBehaviour, ISavedProgress
     {
-        [SerializeField] private MonsterTypeId _monsterTypeId;
-        [SerializeField] private bool _slain;
+        public MonsterTypeId MonsterTypeId;
+        public bool _slain;
 
-        private string _id;
+        public string Id;
         private IGameFactory _factory;
         private EnemyDeath _enemyDeath;
 
         private void Awake() {
-            _id = GetComponent<UniqueId>().Id;
+            Id = GetComponent<UniqueId>().Id;
             _factory = AllServices.Container.Single<IGameFactory>();
         }
 
         public void LoadProgress(PlayerProgress progress) {
-            if (progress.KillData.ClearedSpawners.Contains(_id))
+            if (progress.KillData.ClearedSpawners.Contains(Id))
                 _slain = true;
             else
                 Spawn();
         }
 
         private void Spawn() {
-            var monster = _factory.CreateMonster(_monsterTypeId, transform);
+            var monster = _factory.CreateMonster(MonsterTypeId, transform);
             _enemyDeath = monster.GetComponent<EnemyDeath>();
             _enemyDeath.Happened += Slay;
         }
@@ -45,7 +44,7 @@ namespace CodeBase.Logic
 
         public void UpdateProgress(PlayerProgress progress) {
             if (_slain) {
-                progress.KillData.ClearedSpawners.Add(_id);
+                progress.KillData.ClearedSpawners.Add(Id);
             }
         }
     }
