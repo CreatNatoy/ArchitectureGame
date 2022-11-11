@@ -82,7 +82,7 @@ namespace CodeBase.Infrastructure.Factory
         }
 
         public void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId) {
-            SpawnPoint spawner = InstantiateRegistered(AssetPath.Spawner)
+            SpawnPoint spawner = InstantiateRegistered(AssetPath.Spawner, at)
                 .GetComponent<SpawnPoint>();
             
             spawner.Construct(this);
