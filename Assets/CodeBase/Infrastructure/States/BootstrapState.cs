@@ -6,6 +6,8 @@ using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Services.Input;
 using CodeBase.Services.Randomizer;
 using CodeBase.StaticData;
+using CodeBase.UI.Services.Factory;
+using CodeBase.UI.Services.Windows;
 using UnityEngine.Device;
 
 namespace CodeBase.Infrastructure.States
@@ -46,6 +48,9 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssets>(), _services.Single<IStaticDataService>(), randomService, _services.Single<IPersistentProgressService>()));
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IGameFactory>()));
+            
+            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssets>(), _services.Single<IStaticDataService>()));
+            _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
         }
 
         private void RegisterStaticData() {

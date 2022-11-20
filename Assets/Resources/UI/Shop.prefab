@@ -381,7 +381,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -55}
-  m_SizeDelta: {x: -112, y: -202}
+  m_SizeDelta: {x: -120, y: -202}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3890582426845689820
 CanvasRenderer:
@@ -873,6 +873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3890582427760626670}
   - component: {fileID: 3890582427760626657}
+  - component: {fileID: 6988841829504484487}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -910,6 +911,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3890582427760626671}
   m_CullTransparentMesh: 0
+--- !u!114 &6988841829504484487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890582427760626671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52757df38fcc4e22bec18f5b224896f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _closeButton: {fileID: 2031113054931806690}
 --- !u!1 &3890582427832473835
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,6 +1534,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3890582427760626670}
     m_Modifications:
+    - target: {fileID: 2413372436085256171, guid: bcb414528de0d334abd3d996895ba07d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 2413372436085256172, guid: bcb414528de0d334abd3d996895ba07d,
         type: 3}
       propertyPath: m_Name
@@ -1538,7 +1557,7 @@ PrefabInstance:
     - target: {fileID: 8031617014184696257, guid: bcb414528de0d334abd3d996895ba07d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -29.999878
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 8120025012525130036, guid: bcb414528de0d334abd3d996895ba07d,
         type: 3}
@@ -1578,7 +1597,7 @@ PrefabInstance:
     - target: {fileID: 8120025012525130036, guid: bcb414528de0d334abd3d996895ba07d,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 8120025012525130036, guid: bcb414528de0d334abd3d996895ba07d,
         type: 3}
@@ -1647,6 +1666,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcb414528de0d334abd3d996895ba07d, type: 3}
+--- !u!114 &2031113054931806690 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 625951853535251556, guid: bcb414528de0d334abd3d996895ba07d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1477221819766875526}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7219334872994792626 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8120025012525130036, guid: bcb414528de0d334abd3d996895ba07d,
