@@ -12,7 +12,7 @@ namespace CodeBase.UI.Services.Windows
 
         public void Open(WindowId windowId) {
             switch (windowId) {
-                case WindowId.Unkown:
+                case WindowId.Unknow:
                     break;
                 case WindowId.Shop:
                     _uiFactory.CreateShop(); 
