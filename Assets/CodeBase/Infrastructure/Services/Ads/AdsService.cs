@@ -12,7 +12,7 @@ namespace CodeBase.Infrastructure.Services.Ads
         private string _gameId;
         private Action _onVideoFinished;
 
-        private const string RewardedVideoPlacementID = "RewardedVideo";
+        private const string RewardedVideoPlacementID = "Rewarded_iOS";
 
         public event Action RewardedVideoReady;
 
