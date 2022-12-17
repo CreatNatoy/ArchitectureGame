@@ -4,7 +4,6 @@ using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.StaticData.Windows;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 namespace CodeBase.UI.Services.Factory
