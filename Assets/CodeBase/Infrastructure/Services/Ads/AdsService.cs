@@ -14,7 +14,9 @@ namespace CodeBase.Infrastructure.Services.Ads
 
         private const string RewardedVideoPlacementID = "RewardedVideo";
 
-        public event Action RewardedVideoReady; 
+        public event Action RewardedVideoReady;
+
+        public int Reward => 10; 
 
         public void Initialize() {
             switch (Application.platform) {
