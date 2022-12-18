@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelKey: Main
   EnemySpawners:
-  - Id: Main_dcf411ee-4d6b-4b69-88f2-f499db56e643
-    MonsterTypeId: 0
-    Position: {x: -12.24, y: 0.7, z: -13.82}
-  - Id: Main_f9cda9b6-c7cb-4b4e-bab0-a1180649c7cb
-    MonsterTypeId: 10
-    Position: {x: -8.55, y: 0.1, z: -5.06}
   - Id: Main_f2223f3f-3aa5-40ef-93d9-a4cfbb0f81c6
     MonsterTypeId: 0
-    Position: {x: -15.85, y: 0.1, z: -5.8500004}
+    Position: {x: -8.12, y: 0.5, z: -5.8500004}
+  - Id: Main_f9cda9b6-c7cb-4b4e-bab0-a1180649c7cb
+    MonsterTypeId: 10
+    Position: {x: 12.75, y: 0.5, z: 2.83}
+  - Id: Main_dcf411ee-4d6b-4b69-88f2-f499db56e643
+    MonsterTypeId: 0
+    Position: {x: -12.24, y: 0.5, z: -13.82}
+  InitialHeroPosition: {x: 9.3, y: 1.24, z: -13.93}
