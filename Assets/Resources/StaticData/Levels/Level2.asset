@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd31f01e2d294b2ba75a933b6a6c438f, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
-  LevelKey: 
-  EnemySpawners: []
-  InitialHeroPosition: {x: 0, y: 0, z: 0}
+  LevelKey: Level2
+  EnemySpawners:
+  - Id: Main_f2223f3f-3aa5-40ef-93d9-a4cfbb0f81c6
+    MonsterTypeId: 0
+    Position: {x: -8.12, y: 0.5, z: -5.8500004}
+  - Id: Main_f9cda9b6-c7cb-4b4e-bab0-a1180649c7cb
+    MonsterTypeId: 10
+    Position: {x: 12.75, y: 0.5, z: 2.83}
+  - Id: Main_dcf411ee-4d6b-4b69-88f2-f499db56e643
+    MonsterTypeId: 0
+    Position: {x: -12.24, y: 0.5, z: -13.82}
+  InitialHeroPosition: {x: -7.32, y: 1.24, z: 13.45}
