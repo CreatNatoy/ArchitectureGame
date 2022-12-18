@@ -15,7 +15,6 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {
-        private const string InitialPoint = "InitialPoint";
         private const string EnemySpawnerTag = "EnemySpawner";
 
         private readonly GameStateMachine _stateMachine;
@@ -61,26 +60,23 @@ namespace CodeBase.Infrastructure.States
             _gameFactory.ProgressReaders.ForEach(x => x.LoadProgress(_progressService.Progress));
 
         private void InitGameWorld() {
-            InitSpawners();
-            
-            var hero = InitHero();
+            var levelData = LevelStaticData();
+
+            InitSpawners(levelData);
+            var hero = InitHero(levelData);
 
             InitHud(hero);
             CameraFollow(hero);
-        }       
+        }
 
-        private void InitSpawners() {
-            string sceneKey = SceneManager.GetActiveScene().name;
-            LevelStaticData levelData = _staticData.ForLevel(sceneKey);
-
+        private void InitSpawners(LevelStaticData levelData) {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners) {
                 _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.MonsterTypeId); 
             }
         }
 
-        private GameObject InitHero() {
-            return _gameFactory.CreateHero(at: GameObject.FindWithTag(InitialPoint));
-        }
+        private GameObject InitHero(LevelStaticData levelData) => 
+            _gameFactory.CreateHero(levelData.InitialHeroPosition);
 
         private void InitHud(GameObject hero) {
             var hud = _gameFactory.CreateHud();
@@ -88,7 +84,9 @@ namespace CodeBase.Infrastructure.States
             hud.GetComponentInChildren<ActorUI>().Construct(hero.GetComponent<HeroHealth>());
         }
 
-        private static void CameraFollow(GameObject hero) => Camera.main.GetComponent<CameraFollow>().Follow(hero);
+        private LevelStaticData LevelStaticData() =>
+            _staticData.ForLevel(SceneManager.GetActiveScene().name);
 
+            private static void CameraFollow(GameObject hero) => Camera.main.GetComponent<CameraFollow>().Follow(hero);
     }
 }
