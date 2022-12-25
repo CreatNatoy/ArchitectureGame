@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Services.Randomizer;
 using UnityEngine;
@@ -24,8 +23,8 @@ namespace CodeBase.Enemy
             _enemyDeath.Happened += SpawnLoot;
         }
 
-        private void SpawnLoot() {
-            LootPiece loot =  _factory.CreateLoot();
+        private async void SpawnLoot() {
+            LootPiece loot = await _factory.CreateLoot();
             loot.transform.position = transform.position;
 
             var lootItem = GenerateLoot();

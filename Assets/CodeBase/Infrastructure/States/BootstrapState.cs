@@ -47,7 +47,7 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle(randomService);
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IGameStateMachine>(_stateMachine);
-            _services.RegisterSingle<IAssets>(new AssetProvider());
+            RegisterAssetProvider();
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssets>(), _services.Single<IStaticDataService>(), 
                 _services.Single<IPersistentProgressService>(), _services.Single<IAdsService>()));
@@ -56,6 +56,12 @@ namespace CodeBase.Infrastructure.States
                 randomService, _services.Single<IPersistentProgressService>(), _services.Single<IWindowService>()));
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IGameFactory>()));
             
+        }
+
+        private void RegisterAssetProvider() {
+            var assetProvider = new AssetProvider();
+            _services.RegisterSingle<IAssets>(assetProvider);
+            assetProvider.Initialize();
         }
 
         private void RegisterAdsService() {

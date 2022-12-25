@@ -1,4 +1,5 @@
-﻿using CodeBase.CameraLogic;
+﻿using System.Threading.Tasks;
+using CodeBase.CameraLogic;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
@@ -40,14 +41,15 @@ namespace CodeBase.Infrastructure.States
         public void Enter(string nameScene) { 
             _curtain.Show();
             _gameFactory.Cleanup();
+            _gameFactory.WarmUp();
             _sceneLoader.Load(nameScene, OnLoaded);
         }
 
         public void Exit() => _curtain.Hide();
 
-        private void OnLoaded() {
+        private async void OnLoaded() {
             InitUIRoot();
-            InitGameWorld();
+            await InitGameWorld();
             InformProgressReaders();
             
             _stateMachine.Enter<GameLoopState>();
@@ -59,19 +61,19 @@ namespace CodeBase.Infrastructure.States
         private void InformProgressReaders() => 
             _gameFactory.ProgressReaders.ForEach(x => x.LoadProgress(_progressService.Progress));
 
-        private void InitGameWorld() {
+        private async Task InitGameWorld() {
             var levelData = LevelStaticData();
 
-            InitSpawners(levelData);
+            await InitSpawners(levelData);
             var hero = InitHero(levelData);
 
             InitHud(hero);
             CameraFollow(hero);
         }
 
-        private void InitSpawners(LevelStaticData levelData) {
+        private async Task InitSpawners(LevelStaticData levelData) {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners) {
-                _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.MonsterTypeId); 
+              await _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.MonsterTypeId); 
             }
         }
 
