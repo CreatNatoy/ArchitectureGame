@@ -41,14 +41,14 @@ namespace CodeBase.Infrastructure.Factory
           await _assets.Load<GameObject>(AssetsAddress.Spawner);
         }
         
-        public GameObject CreateHero(Vector3 at) {
+        public async Task<GameObject> CreateHero(Vector3 at) {
             
-            HeroGameObject = InstantiateRegistered(AssetsAddress.HeroPath, at);
+            HeroGameObject = await InstantiateRegisteredAsync(AssetsAddress.Hero, at);
             return HeroGameObject; 
         }
 
-        public GameObject CreateHud() {
-            GameObject hud = InstantiateRegistered(AssetsAddress.HudPath);
+        public async Task<GameObject> CreateHud() {
+            GameObject hud = await InstantiateRegisteredAsync(AssetsAddress.Hud);
             
             hud.GetComponentInChildren<LootCounter>().Construct(_progressService.Progress.WorldData);
 
@@ -108,12 +108,18 @@ namespace CodeBase.Infrastructure.Factory
             _assets.CleanUp();
         }
 
-        private GameObject InstantiateRegistered(string prefabPath, Vector3 at) {
-            var gameObject = _assets.Instantiate(prefabPath, at);
+        private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Vector3 at) {
+            var gameObject = await _assets.Instantiate(prefabPath, at);
             RegisterProgressWatchers(gameObject);
             return gameObject; 
-        } 
-        
+        }
+
+        private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath) {
+            var gameObject = await _assets.Instantiate(prefabPath);
+            RegisterProgressWatchers(gameObject);
+            return gameObject; 
+        }
+
         private GameObject InstantiateRegistered(GameObject prefab, Vector3 at) {
             var gameObject = Object.Instantiate(prefab, at, Quaternion.identity);
             RegisterProgressWatchers(gameObject);
@@ -127,12 +133,6 @@ namespace CodeBase.Infrastructure.Factory
             ProgressReaders.Add(progressReader);
         }
 
-        private GameObject InstantiateRegistered(string prefabPath) {
-            var gameObject = _assets.Instantiate(prefabPath);
-            RegisterProgressWatchers(gameObject);
-            return gameObject; 
-        }
-        
         private GameObject InstantiateRegistered(GameObject prefab) {
             var gameObject = Object.Instantiate(prefab);
             RegisterProgressWatchers(gameObject);

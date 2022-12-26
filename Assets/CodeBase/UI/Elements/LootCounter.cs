@@ -13,9 +13,7 @@ namespace CodeBase.UI.Elements
         public void Construct(WorldData worldData) {
             _worldData = worldData;
             _worldData.LootData.Changed += UpdateCounter; 
-        }
-
-        private void Start() {
+            
             UpdateCounter();
         }
 
