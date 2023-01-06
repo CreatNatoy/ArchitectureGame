@@ -15,6 +15,8 @@ Game top down. With mobile and computer control.
 * Factory 
 * DI 
 * Servise Locator
+* Addressables
+* Ads
 
 ## Controller game (PC)
 * `Left Click (Mouse)` - Attack
