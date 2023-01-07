@@ -17,8 +17,7 @@ namespace CodeBase.UI.Elements
             UpdateCounter();
         }
 
-        private void UpdateCounter() {
+        private void UpdateCounter() => 
             _counter.text = $"{_worldData.LootData.Collected}";
-        }
     }
 }
