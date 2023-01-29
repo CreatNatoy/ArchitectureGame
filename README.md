@@ -17,6 +17,7 @@ Game top down. With mobile and computer control.
 * Servise Locator
 * Addressables
 * Ads
+* InApps (Shop) 
 
 ## Controller game (PC)
 * `Left Click (Mouse)` - Attack
