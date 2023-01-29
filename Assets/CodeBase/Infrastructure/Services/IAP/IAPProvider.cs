@@ -16,6 +16,8 @@ namespace CodeBase.Infrastructure.Services.IAP
         private IExtensionProvider _extensions;
 
         public Dictionary<string, ProductConfig> Configs;
+        public Dictionary<string, Product> Products;
+        
         private IAPService _iapService;
 
         public event Action Initialized;
@@ -27,6 +29,7 @@ namespace CodeBase.Infrastructure.Services.IAP
             _iapService = iapService;
             
             Configs = new Dictionary<string, ProductConfig>();
+            Products = new Dictionary<string, Product>();
             
             Load();
             ConfigurationBuilder builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
@@ -43,6 +46,9 @@ namespace CodeBase.Infrastructure.Services.IAP
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions) {
             _controller = controller;
             _extensions = extensions;
+
+            foreach (var product in _controller.products.all) 
+                Products.Add(product.definition.id, product);
 
             Initialized?.Invoke();
             

@@ -13,5 +13,6 @@ namespace CodeBase.Infrastructure.AssetManagement
         void CleanUp();
         Task<T> Load<T>(string address) where T : class;
         void Initialize();
+        Task<GameObject> Instantiate(string address, Transform under);
     }
 }

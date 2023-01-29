@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine.Purchasing;
 
 namespace CodeBase.Infrastructure.Services.IAP
 {
-    public class IAPService
+    public class IAPService : IIAPService
     {
         private readonly IAPProvider _iapProvider;
         private readonly IPersistentProgressService _progressService;
@@ -22,6 +25,9 @@ namespace CodeBase.Infrastructure.Services.IAP
             _iapProvider.Initialized += () => Initialized?.Invoke();
         }
 
+        public List<ProductDescription> Products() =>
+            ProductDescriptions().ToList();
+
         public void StartPurchase(string productId) => 
             _iapProvider.StartPurchase(productId);
 
@@ -36,6 +42,35 @@ namespace CodeBase.Infrastructure.Services.IAP
            }
 
            return PurchaseProcessingResult.Complete;
+        }
+
+        private bool ProductBoughtOut(BoughtIAP boughtIAP, ProductConfig config) => 
+            boughtIAP != null && boughtIAP.Count >= config.MaxPurchaseCount;
+
+        private IEnumerable<ProductDescription> ProductDescriptions()
+        {
+            var purchaseData = _progressService.Progress.PurchaseData;
+            
+            foreach (var productId in _iapProvider.Products.Keys)
+            {
+                var config = _iapProvider.Configs[productId];
+                var product = _iapProvider.Products[productId];
+
+                BoughtIAP boughtIAP = purchaseData.BoughtIAPs.Find(x => x.IAPid == productId);
+                
+                if(ProductBoughtOut(boughtIAP, config))
+                    continue;
+
+                yield return new ProductDescription
+                {
+                    Id = productId,
+                    Config = config,
+                    Product = product,
+                    AvailablePurchasesLeft = boughtIAP != null
+                        ? config.MaxPurchaseCount - boughtIAP.Count
+                        : config.MaxPurchaseCount,
+                };
+            }
         }
     }
 }

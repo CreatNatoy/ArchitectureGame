@@ -33,7 +33,10 @@ namespace CodeBase.Infrastructure.AssetManagement
             Addressables.InstantiateAsync(address).Task;
 
         public Task<GameObject> Instantiate(string address, Vector3 at) => 
-            Addressables.InstantiateAsync(address, at, Quaternion.identity).Task;
+            Addressables.InstantiateAsync(address, at, Quaternion.identity).Task;        
+        
+        public Task<GameObject> Instantiate(string address, Transform under) => 
+            Addressables.InstantiateAsync(address, under).Task;
 
         public void CleanUp() {
             foreach (List<AsyncOperationHandle> resourceHandles in _handles.Values) {
